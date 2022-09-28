@@ -24,14 +24,14 @@ const Paged = ({ countriesPerPage,currentPage, setCurrentPage, allCountries, tot
   return (
     <nav>
       <ul className="pageNumbers">
-      <button className='movesBtn' disabled={currentPage <= 1} onClick={prevClick} >Prev</button>
+      <button className={currentPage <= 1 ? 'movesBtn' : 'movesBtnAct'} disabled={currentPage <= 1} onClick={prevClick} >Prev</button>
         {pageNumber && 
         pageNumber.map(number =>           
-            <li className="number" key={number}>
-              <a onClick={()=> totalPages(number)}>{number}</a>
-            </li>
+            <li key={number} >
+              <div className={number === currentPage ? 'btnUnSelect' : 'btnStyle' }  onClick={()=> totalPages(number)}>{number}</div>
+            </li> 
         )}
-      <button className='movesBtn' disabled={currentPage >= round} onClick={nextClick} >Next</button>
+      <button className={currentPage >= round ? 'movesBtn' : 'movesBtnAct'} disabled={currentPage >= round} onClick={nextClick} >Next</button>
       </ul>
     </nav>
   )

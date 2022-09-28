@@ -1,21 +1,22 @@
 import React from 'react';
 import { useState,useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {getAllCountries, FilterByContinent, orderByName, orderByPopulation,filterByActivities, getAllActivities} from '../../redux/actions';
+import {getAllCountries, FilterByContinent, orderByName, orderByPopulation} from '../../redux/actions';
 import {Link} from 'react-router-dom'
 import Card from '../Card/Card';
 import Paged from '../Paged/Paged';
 import SearchBar from '../SearchBar/SearchBar';
 import AllActivities from '../CreateActivity/AllActivities';
+import './Home.modules.css'
 
 
 export default function Home(){
     const dispatch = useDispatch();
     const allCountries = useSelector((state) => state.countries)
     
-    const [orden,setOrden] = useState('')
+    const [,setOrden] = useState('')
     const [currentPage,setCurrentPage] = useState(1)
-    const [countriesPerPage, setCountriesPerPage] = useState(9) 
+    const [countriesPerPage] = useState(9) 
     const indexOfLastCountry = currentPage * countriesPerPage
     const indexOfFirstCountry = indexOfLastCountry - countriesPerPage
 
@@ -83,30 +84,29 @@ export default function Home(){
 
     return (
     <div className="home-order">
-        <Link to='/activities'>Crear actividad</Link>
-        <h1>Bienvenidos a PAISES</h1>
+        
+        <h1>Explore and travel</h1>
         <div>
-                <button onClick={handleOnClickReset}>Reset</button>
+                <button className='btnReloadEsp' onClick={handleOnClickReset}>Reset</button>
         </div>
-        <div>
-           <select onChange={e => handleSort(e)}>
-               <option value={"All"}>Order Alphabetic...</option>
-               <option value={"asc"}>A-Z</option>
-               <option value={"desc"}>Z-A</option>
-           </select>
-        </div>
-        <div>
-        <span>Filter By Population: </span>
-           <select onChange={e => handleSortP(e)}>
-           <option value={"All"}>Population...</option>
-               <option value={"higher"}>Higher Population</option>
-               <option value={"lower"}>Lower Population</option>
-           </select>
-        </div>
+        <br></br>
+        <div className="filtrados">
 
-        <div>
-        <span>Filter By Continent: </span>
-        <select onChange={e => handleFilterContinent(e)}>
+            <select onChange={e => handleSort(e)}>
+            <option value={"All"}>Order Alphabetic...</option>
+            <option value={"asc"}>A-Z</option>
+            <option value={"desc"}>Z-A</option>
+            </select>
+
+            
+            <select onChange={e => handleSortP(e)}>
+            <option value={"All"}>Population...</option>
+            <option value={"higher"}>Higher Population</option>
+            <option value={"lower"}>Lower Population</option>
+            </select>
+
+            
+            <select onChange={e => handleFilterContinent(e)}>
             <option value={"All"}> Continents...</option>
             <option value={"Europe"}>-- Europe --</option>
             <option value={"Asia"}>-- Asia --</option>
@@ -115,10 +115,20 @@ export default function Home(){
             <option value={"Antarctica"}>-- Antarctic --</option> 
             <option value={"North America"}>-- North America --</option> 
             <option value={"South America"}>-- South America --</option>
+            </select>
+           < AllActivities />
             
-        </select>
+           <br></br> 
+           <br></br>
+            
         </div>
-        <div>
+         <div className='bloqueAct'>  
+         <SearchBar/> 
+        <Link to='/activities'><button className='btnReload'>Create Activity</button></Link>
+         
+         </div>
+           
+            <div>
              <Paged
                 countriesPerPage = {countriesPerPage}
                 allCountries = {allCountries.length}
@@ -126,14 +136,7 @@ export default function Home(){
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
                 />
-         </div>
-
-         <SearchBar
-         />
-
-
-            {<AllActivities />}
-            
+         </div>   
           <div className="cards-container">
                 {
                     currentCountries?.length 

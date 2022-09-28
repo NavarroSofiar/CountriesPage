@@ -3,6 +3,7 @@ import {  useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link , useHistory} from 'react-router-dom';
 import { getAllCountries, createActivity} from '../../redux/actions';
+import './CreateActivity.modules.css'
 
 const CreateActivity = () => {
    const dispatch = useDispatch()
@@ -119,7 +120,7 @@ const handleSelectSeason = (e) => {
 
   return (
     <div>
-      <Link to='/home'><button>Back to countries</button></Link>
+      <Link to='/home'><button className='btnReload'>Back to countries</button></Link>
       
       <h1>Create Activity</h1>
       <form  onSubmit={e =>handleOnSubmit(e)}>
@@ -142,6 +143,7 @@ const handleSelectSeason = (e) => {
         value={input.difficulty}
         placeholder={"difficulty"}
         onChange={e => handleChange(e)}
+        
     >   
         <option key="defaultValue" value={""} selected disabled>Difficulty</option>
         <option  key="value1" value={"1"}>1</option>
@@ -186,19 +188,26 @@ const handleSelectSeason = (e) => {
 
     <div className='field'>
       <label>Countries</label>
-      <select onChange={(e) => handleSelectCountries(e)}>         
+      <select onChange={(e) => handleSelectCountries(e)} >         
         <option key="defaultValue" value={""} selected disabled>Countries select</option>
 						{countries.map(countries => (
 							<option key={countries.id} value={countries.name}>{countries.name}</option>
 						))}
 	</select>
+  {/* {errors.countries && <p className="error">{errors.countries}</p>} */}
      <ul>
           <li>{input.countries.map(el => el + ", ")}</li>
         </ul>
+        {errors.countries && <p className="error">{errors.countries}</p>}
         
      </div>
         <div className='submit'>
-          <button type={"submit"}  disabled={
+          <button className={errors.name ||
+            errors.difficulty ||
+            errors.duration ||
+            errors.season ||
+            errors.countries
+              ? 'movesBtn':'movesBtnAct'}type={"submit"}  disabled={
             errors.name ||
             errors.difficulty ||
             errors.duration ||
@@ -213,7 +222,7 @@ const handleSelectSeason = (e) => {
           input.countries.map(d => 
             <div>
               <p>{d}</p>
-              <button onClick={() => handleDeleteCountries(d)}>X</button>
+              <button className='removeBtn' onClick={() => handleDeleteCountries(d)}>X</button>
             </div>
             )
         }

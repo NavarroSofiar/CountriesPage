@@ -1,8 +1,8 @@
 import React from 'react'
-import { useState,useEffect } from 'react';
+import { useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {Link} from 'react-router-dom'
 import { getCountriesById} from '../../redux/actions';
+import './Detail.modules.css'
 
 
  const Detail = (props) => {
@@ -17,12 +17,12 @@ console.log(detail)
 
   
   return (
-    <div>
+    <div className= "container-detail">
       
          {
 
                 detail.length > 0 ?
-                <div key='count' className= "container-detail">
+                <div key='count' >
                     <div className = "tarjeta">
                         <div className = "tarjeta-image">
                             <img src={detail[0].flag} alt="img not found" width="350px" heigth="290px"/>

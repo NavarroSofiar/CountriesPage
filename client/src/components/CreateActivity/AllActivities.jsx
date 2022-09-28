@@ -1,6 +1,6 @@
  import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-//import styles from "../Home/Home.module.css";
+import  "./AllActivities.modules.css";
 import {
   filterByActivity,
   getAllActivities,
@@ -25,7 +25,7 @@ const AllActivities = () => {
   };
 
   return (
-    <div>
+    
       <select  onChange={(e) => handleOnChange(e)}>
         <option value="All">All activities</option>
         {totalActivities.map((act, i) => {
@@ -36,7 +36,7 @@ const AllActivities = () => {
           );
         })}
       </select>
-    </div>
+   
   );
 };
 
