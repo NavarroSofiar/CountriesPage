@@ -61,17 +61,11 @@ router.get('/countries', async(req, res) => {
     } catch (error) {
         console.log(error)
     }
-    // Guardo en una constante el query de mi name para usarlo luego
+    
     const name = req.query.name
     const dbInfo = await getCountriesDbInfo() 
-    if(name){
-        
-       /*  let countriesName = await dbInfo.filter(n=> n.name.toLowerCase().includes(name.toLowerCase()))
-        countriesName.length ?
-        res.status(200).send(countriesName) : 
-        res.status(404).send("No existe el pais indicado") ---> ESTO SI FUNCIONA TAMBIEN
- */
-         const responseByName = await Country.findAll({
+    if(name){      
+     const responseByName = await Country.findAll({
             attributes: ["flag", "name", "continent", "capital","id", "population", "area"],
             through: {
                 attributes: []
@@ -82,9 +76,9 @@ router.get('/countries', async(req, res) => {
                 }
             }
         })
-       responseByName.length?
-       res.json(responseByName):
-       res.status(404) .send('No existe el pais indicado')
+        responseByName.length? 
+       res.json(responseByName) :
+       res.status(404) .send('No existe el pais indicado, por favor inserte un nombre válido') 
 
 
 
@@ -96,42 +90,19 @@ router.get('/countries', async(req, res) => {
 })
 
 router.get('/countries/:id', async(req, res) => {
-   const id = req.params.id // así no está destructurado
+   const id = req.params.id 
    const countriesTotal = await getCountriesDbInfo(); 
    if (id) {
     let countriesId = await countriesTotal.filter(el=> el.id == id)
     countriesId.length?
     res.status(200).json(countriesId) :
-    res.status(404).send('No se encontró ese pais')
+    res.status(404).send('No se encontró este pais o no existe')
    }
 
 
 }) 
 
-/* router.post('/activities', async(req,res) =>{
-    const { name, difficulty, duration, season, countries  } = req.body
-      const newActivity = await Activity.create ({
-        name,
-        difficulty,
-        duration,
-        season,
-    })
-
-    console.log(countries);
-      countries.forEach(async c => {
-        const countriesIn = await Country.findAll({
-          where: {
-            id: c
-          }
-        });
-        console.log(countriesIn);
-        newActivity.addCountry(countriesIn) 
-      }) 
-
-      return res.json(newActivity);        
-})  */
-
- router.post('/activities', async(req,res) =>{
+router.post('/activities', async(req,res) =>{
     const { name, difficulty, duration, season, countries  } = req.body
     const [newActivity, created] = await Activity.findOrCreate ({
         where: 
@@ -187,6 +158,7 @@ router.get('/countries/:id', async(req, res) => {
     res.status(404).send('No se encontró ninguna actividad')
   }
 }) 
+
 
 
 

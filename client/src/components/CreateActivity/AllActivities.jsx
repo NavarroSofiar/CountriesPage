@@ -1,11 +1,7 @@
  import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import  "./AllActivities.modules.css";
-import {
-  filterByActivity,
-  getAllActivities,
-  getAllCountries,
-} from "../../redux/actions";
+import { filterByActivity, getAllActivities } from "../../redux/actions";
 
 const AllActivities = () => {
   const totalActivities = useSelector((state) => state.activities);
@@ -18,25 +14,19 @@ const AllActivities = () => {
 
   const handleOnChange = (e) => {
     e.preventDefault();
-    if (e.target.value === "All") {
-      return dispatch(getAllCountries());
-    }
-    dispatch(filterByActivity(e.target.value));
+   dispatch(filterByActivity(e.target.value));
   };
 
   return (
     
       <select  onChange={(e) => handleOnChange(e)}>
-        <option value="All">All activities</option>
-        {totalActivities.map((act, i) => {
+        <option key="defaultValue" hidden value="All">All activities</option>
+        {totalActivities.map((act) => {
           return (
-            <option value={act.name} key={i}>
-              {act.name}
-            </option>
+            <option value={act.name} key={act.id}> {act.name} </option>
           );
         })}
       </select>
-   
   );
 };
 

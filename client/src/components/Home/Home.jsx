@@ -13,7 +13,6 @@ import './Home.modules.css'
 export default function Home(){
     const dispatch = useDispatch();
     const allCountries = useSelector((state) => state.countries)
-    
     const [,setOrden] = useState('')
     const [currentPage,setCurrentPage] = useState(1)
     const [countriesPerPage] = useState(9) 
@@ -34,8 +33,7 @@ export default function Home(){
         indexOfFirstCountry + indFirstCountry,
         indexOfLastCountry + indLastCountry
       ); //deja solo la cantidad de países que necesito en cada página
-     console.log('array current countries',currentCountries )
-    //const currentCountries = allCountries.slice(indexOfFirstCountry,indexOfLastCountry)
+    
    
 
     const totalPages= (pageNumber) => {
@@ -55,7 +53,9 @@ export default function Home(){
 
     function handleFilterContinent(e){
         e.preventDefault();
-       dispatch(FilterByContinent(e.target.value))
+       dispatch(FilterByContinent(e.target.value));
+       setCurrentPage(1);
+       setOrden(e.target.value);
     }
 
     
@@ -104,17 +104,16 @@ export default function Home(){
             <option value={"higher"}>Higher Population</option>
             <option value={"lower"}>Lower Population</option>
             </select>
-
             
             <select onChange={e => handleFilterContinent(e)}>
             <option value={"All"}> Continents...</option>
-            <option value={"Europe"}>-- Europe --</option>
-            <option value={"Asia"}>-- Asia --</option>
-            <option value={"Oceania"}>-- Oceania --</option>
-            <option value={"Africa"}>-- Africa --</option> 
-            <option value={"Antarctica"}>-- Antarctic --</option> 
-            <option value={"North America"}>-- North America --</option> 
-            <option value={"South America"}>-- South America --</option>
+            <option value={"Europe"}>Europe </option>
+            <option value={"Asia"}>Asia </option>
+            <option value={"Oceania"}>Oceania</option>
+            <option value={"Africa"}>Africa</option> 
+            <option value={"Antarctica"}>Antarctic</option> 
+            <option value={"North America"}>North America</option> 
+            <option value={"South America"}>South America</option>
             </select>
            < AllActivities />
             
@@ -144,7 +143,7 @@ export default function Home(){
                     currentCountries?.map(co => {
                         return (
                         
-                        <Card flag={co.flag} name={co.name} continent={co.continent} id={co.id} key={co.id}/>
+                        <Card flag={co.flag} name={co.name} continent={co.continent}  id={co.id} key={co.id}/>
                         
                     )})
                     :

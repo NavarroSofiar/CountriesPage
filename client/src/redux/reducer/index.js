@@ -5,7 +5,8 @@ const initialState={
   countries: [],
   allCountries: [],
   detail:[],
-  activities:[]
+  activities:[],
+  
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -87,7 +88,6 @@ const rootReducer = (state = initialState, action) => {
           ...state,
           countries: sortedArrP
     }
-
     case POST_ACTIVITIES:
             return {
                 ...state,
@@ -102,6 +102,7 @@ const rootReducer = (state = initialState, action) => {
           ...state,
           countries: action.payload
               }
+      
     default: return state;
   }
 }

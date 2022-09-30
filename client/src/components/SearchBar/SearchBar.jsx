@@ -8,19 +8,24 @@ import './SearchBar.modules.css'
 export default function SearchBar(){
     const dispatch = useDispatch();
     const[name,setName] = useState('')
+    const [,setOrden] = useState('')
+    const [currentPage,setCurrentPage] = useState(1)
+    
     
 
     function handleInputChange(e){
         e.preventDefault();
         setName(e.target.value);
         console.log(name)
+        
     }
     function handleSubmit(e){
         e.preventDefault();
-       let a= dispatch(getNameCountries(name));
-       console.log(a)
+         dispatch(getNameCountries(name));
          setName("");
-        
+         setCurrentPage(1);
+        setOrden(e.target.value);
+         
     }
 
 

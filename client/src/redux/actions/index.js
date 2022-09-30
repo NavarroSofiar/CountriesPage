@@ -12,17 +12,20 @@ export const FILTER_ACTIVITY="FILTER_BY_ACTIVITy"
 
 
 
+
 export function getAllCountries(){
-    return async function(dispatch){
-        var json = await axios.get ("http://localhost:3001/countries");
-        return dispatch({
-            type: GET_ALL_COUNTRIES,
-            payload: json.data
-
-        })
-    }
+     return async function(dispatch)  {
+      try {
+            const json = await axios.get(`http://localhost:3001/countries`);
+            return dispatch({
+                type: GET_ALL_COUNTRIES,
+                payload: json.data
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
 }
-
 
 export function getNameCountries(name){
  return async function(dispatch){
@@ -38,7 +41,7 @@ export function getNameCountries(name){
  }   
 }
 
-  export function getCountriesById(id){
+export function getCountriesById(id){
     return async function(dispatch){
         try {
             var json = await axios.get(`http://localhost:3001/countries/${id}`);
@@ -50,22 +53,8 @@ export function getNameCountries(name){
           console.log(error)  
         }
     }
-}  
- /* export const getCountriesById  = (id) => {
-    return (dispatch) => {
-        axios.get(`http://localhost:3001/countries/${id}`)
-        .then(detailAPI => {
-            return dispatch ({
-                type: GET_COUNTRIES_BY_ID,
-                payload: detailAPI.data
-            });
-        })
-        .catch ((error) => {
-            console.log(error);
-        });
-    };
-};  
- */
+}
+
 
 export const FilterByContinent = (continent) => {
     //console.log(continent)
@@ -88,8 +77,6 @@ export const orderByPopulation = (population) => {
     }
 }
 
- 
-
 export const createActivity =  (payload) => {
     return async function (dispatch) {
         const inputUser = await axios.post("http://localhost:3001/activities", payload);
@@ -102,23 +89,19 @@ export const createActivity =  (payload) => {
 
 
 
-export const filterByActivity = (payload) => async (dispatch) => {
+export const filterByActivity = (payload) =>  async (dispatch) => {
     const response = await axios.get('http://localhost:3001/countries')
 
-    console.log(payload)
-
-    if (payload === 'All') {
-        dispatch({ type: FILTER_ACTIVITY, payload: response.data })
-    }
     const response2 = await response.data.filter((e) => (
         e.activities.filter((el) => el.name === payload).length
     )
 )
 
-    console.log(response2)
-    dispatch({ type: FILTER_ACTIVITY, payload: response2 })
+   return dispatch({ 
+    type: FILTER_ACTIVITY, 
+    payload: response2 }) 
 
-
+ 
 }
 
 export const getAllActivities = () => async (dispatch) => {

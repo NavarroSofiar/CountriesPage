@@ -28,9 +28,9 @@ const CreateActivity = () => {
       // name es requerido y no acepta espacios en blancos.
       errors.name = "The name field is required";
     }   
-    if (!input.duration) {
+    if (!input.duration && input.duration%1 ===0 && isNaN(input.name) === true) {
       // duration es requerido
-      errors.duration = "Duration is required";
+      errors.duration = "Duration is required a number integer";
     }
   
     if (!input.difficulty) {
@@ -61,7 +61,7 @@ const CreateActivity = () => {
             [e.target.name]: e.target.value,
         })
     );
-    console.log(input)
+    
 }
 const handleSelectSeason = (e) => {
     setInput({
@@ -86,14 +86,15 @@ const handleSelectSeason = (e) => {
             [e.target.name]: e.target.value,
         })
     );
-    console.log(input)
+    
   };
 
-  const handleDeleteCountries = (d) => {
+  const handleDeleteCountries = (e) => {
     setInput({
       ...input,
-      countries: input.countries.filter(ct => ct !== d)
+      countries: input.countries.filter(ct => ct !== e)
     });
+    
   };
 
   const handleOnSubmit = (e) => {
@@ -101,7 +102,7 @@ const handleSelectSeason = (e) => {
     setErrors(validate(input));
 		const errorCompletarFormu = validate(input);
 		if (Object.values(errorCompletarFormu).length !== 0 || !input.countries) {
-			alert("Todos los campos deben ser requeridos");
+			alert("Todos los campos deben ser completados");
 		} else {
     dispatch(createActivity(input));
     console.log(input);
@@ -145,7 +146,7 @@ const handleSelectSeason = (e) => {
         onChange={e => handleChange(e)}
         
     >   
-        <option key="defaultValue" value={""} selected disabled>Difficulty</option>
+        <option key="defaultValue" hidden value={""} >Difficulty</option>
         <option  key="value1" value={"1"}>1</option>
         <option  key="value2" value={"2"}>2</option>
         <option  key="value3" value={"3"}>3</option>
@@ -177,7 +178,7 @@ const handleSelectSeason = (e) => {
     value={input.season} 
     onChange={e =>handleSelectSeason(e)}
     >
-          <option key="defaultValue" value={""} selected disabled>Season</option>
+          <option key="defaultValue" hidden value={""} >Season</option>
           <option key="value1" value="Spring"> Spring </option>
           <option key="value2" value="Summer"> Summer </option>
           <option key="value3" value="Autumn"> Autumn </option>
@@ -189,40 +190,38 @@ const handleSelectSeason = (e) => {
     <div className='field'>
       <label>Countries</label>
       <select onChange={(e) => handleSelectCountries(e)} >         
-        <option key="defaultValue" value={""} selected disabled>Countries select</option>
-						{countries.map(countries => (
-							<option key={countries.id} value={countries.name}>{countries.name}</option>
-						))}
+        <option hidden value={""} >Countries select</option>
+						{countries.map(countries => 
+							<option key={countries.id} value={countries.name}>{countries.name}</option> 
+              
+						)}
 	</select>
-  {/* {errors.countries && <p className="error">{errors.countries}</p>} */}
-     <ul>
-          <li>{input.countries.map(el => el + ", ")}</li>
-        </ul>
-        {errors.countries && <p className="error">{errors.countries}</p>}
+          
         
      </div>
         <div className='submit'>
           <button className={errors.name ||
             errors.difficulty ||
             errors.duration ||
-            errors.season ||
-            errors.countries
+            errors.season 
               ? 'movesBtn':'movesBtnAct'}type={"submit"}  disabled={
             errors.name ||
             errors.difficulty ||
             errors.duration ||
-            errors.season ||
-            errors.countries
+            errors.season 
+           
               ? true
               : false
           }  >Create</button>
         </div>
+        <br></br>
+        <br></br>
         <div>
         {
-          input.countries.map(d => 
-            <div>
-              <p>{d}</p>
-              <button className='removeBtn' onClick={() => handleDeleteCountries(d)}>X</button>
+          input.countries.map(e => 
+            <div >
+              <p>{e}</p>
+              <button className='removeBtn' onClick={() => handleDeleteCountries(e)}>X</button>
             </div>
             )
         }

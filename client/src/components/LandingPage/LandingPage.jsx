@@ -6,7 +6,7 @@ const LandingPage = () => {
      return (
          <div className='containerDiv'>
             <div >
-            <h1 className='title'>You Dream Escape...</h1>
+            <h1 className='title'>Your Dream Escape...</h1>
             <h4 className='subtitle'>only a quick search away</h4>
             </div>
              <Link to="/home">
