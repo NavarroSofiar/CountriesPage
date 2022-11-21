@@ -40,7 +40,7 @@ const getCountriesDbInfo = async () =>{
         },  
       include:{
         model: Activity,
-        attributes:["name", "difficulty", "duration", "season"],
+        attributes:["name", "difficulty", "duration", "season","lugar"],
         through:{
             attributes:[],
         }
@@ -103,7 +103,7 @@ router.get('/countries/:id', async(req, res) => {
 }) 
 
 router.post('/activities', async(req,res) =>{
-    const { name, difficulty, duration, season, countries  } = req.body
+    const { name, difficulty, duration, season,lugar, countries  } = req.body
     const [newActivity, created] = await Activity.findOrCreate ({
         where: 
         {name},
@@ -111,16 +111,10 @@ router.post('/activities', async(req,res) =>{
         {name,
         difficulty, 
         duration,
-        season,}
+        season,
+        lugar}
     }) 
-     /*  router.post('/activities', async(req,res) =>{
-        const { name, difficulty, duration, season, countries  } = req.body
-          const newActivity = await Activity.create ({
-            name,
-            difficulty,
-            duration,
-            season,
-        })   */    
+  
 
     console.log(countries);
       

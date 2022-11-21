@@ -24,6 +24,9 @@ module.exports = (sequelize) => {
     type: DataTypes.ENUM('Summer', 'Autumn', 'Winter' , 'Spring'),
     
   },
+  lugar:{
+    type:DataTypes.ENUM('Playa','Montana')
+  }
 
    });
 };

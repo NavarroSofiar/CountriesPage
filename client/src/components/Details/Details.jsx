@@ -61,7 +61,7 @@ const detail = useSelector((state =>state.detail))
                 <p>{detail[0].activities.map((act) => (
               <li key={act.id}>
               <span><strong>{act.name}</strong> ({act.season}) | Duration:{' '}
-              {act.duration} - Difficulty: {act.difficulty}
+              {act.duration} - Difficulty: {act.difficulty} -Lugar:{act.lugar}
             </span>
             </li>
             ))}</p>

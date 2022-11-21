@@ -35,9 +35,8 @@ const rootReducer = (state = initialState, action) => {
       return{
         ...state,
         countries: continentFiltered
-    }
+    } 
     
-
     case ORDER_BY_NAME:
       const sortedArr = action.payload === 'asc'?
           state.countries.sort(function(a,b){

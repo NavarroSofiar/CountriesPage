@@ -13,7 +13,7 @@ import './Home.modules.css'
 export default function Home(){
     const dispatch = useDispatch();
     const allCountries = useSelector((state) => state.countries)
-    const [,setOrden] = useState('')
+    const [orden,setOrden] = useState('')
     const [currentPage,setCurrentPage] = useState(1)
     const [countriesPerPage] = useState(9) 
     const indexOfLastCountry = currentPage * countriesPerPage
@@ -49,6 +49,9 @@ export default function Home(){
     const handleOnClickReset = (e) => {
         e.preventDefault();
         dispatch(getAllCountries());
+        setCurrentPage(1);
+       setOrden('All');
+       
     }
 
     function handleFilterContinent(e){
@@ -56,8 +59,8 @@ export default function Home(){
        dispatch(FilterByContinent(e.target.value));
        setCurrentPage(1);
        setOrden(e.target.value);
+       
     }
-
     
     function handleSort(e){
         if (e.target.value === "All") {
@@ -80,32 +83,33 @@ export default function Home(){
         dispatch(orderByPopulation(e.target.value));
         setCurrentPage(1);
         setOrden(`Ordenado ${e.target.value}`)
-    }}
+    }
+  }
 
     return (
     <div className="home-order">
-        
+    
         <h1>Explore and travel</h1>
         <div>
-                <button className='btnReloadEsp' onClick={handleOnClickReset}>Reset</button>
+                <button className='btnReloadEsp'value={orden}  onClick={handleOnClickReset}>Reset</button>
         </div>
-        <br></br>
+        <br></br> 
         <div className="filtrados">
 
-            <select onChange={e => handleSort(e)}>
+            <select  onChange={e => handleSort(e)}>
             <option value={"All"}>Order Alphabetic...</option>
             <option value={"asc"}>A-Z</option>
             <option value={"desc"}>Z-A</option>
             </select>
 
             
-            <select onChange={e => handleSortP(e)}>
+            <select  onChange={e => handleSortP(e)}>
             <option value={"All"}>Population...</option>
             <option value={"higher"}>Higher Population</option>
             <option value={"lower"}>Lower Population</option>
             </select>
             
-            <select onChange={e => handleFilterContinent(e)}>
+            <select  onChange={e => handleFilterContinent(e)}>
             <option value={"All"}> Continents...</option>
             <option value={"Europe"}>Europe </option>
             <option value={"Asia"}>Asia </option>
@@ -122,7 +126,7 @@ export default function Home(){
             
         </div>
          <div className='bloqueAct'>  
-         <SearchBar/> 
+         <SearchBar setCurrentPage={setCurrentPage}/> 
         <Link to='/activities'><button className='btnReload'>Create Activity</button></Link>
          
          </div>
@@ -138,7 +142,7 @@ export default function Home(){
          </div>   
           <div className="cards-container">
                 {
-                    currentCountries?.length 
+                    currentCountries.length 
                     ?
                     currentCountries?.map(co => {
                         return (
@@ -150,6 +154,8 @@ export default function Home(){
                     <div>Loading...</div> 
                 }
             </div>
+
+            
             
         
         

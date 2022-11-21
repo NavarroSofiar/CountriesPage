@@ -76,6 +76,10 @@ const handleSelectSeason = (e) => {
     );
   };
   const handleSelectCountries = (e) => {
+    console.log(input)
+    if (
+      !input.countries?.includes(e.target.value) 
+    ) {
     setInput({
       ...input,
       countries: [...input.countries, e.target.value]
@@ -86,13 +90,13 @@ const handleSelectSeason = (e) => {
             [e.target.name]: e.target.value,
         })
     );
-    
+      }
   };
 
   const handleDeleteCountries = (e) => {
     setInput({
       ...input,
-      countries: input.countries.filter(ct => ct !== e)
+      countries: input.countries?.filter(ct => ct !== e)
     });
     
   };
@@ -188,13 +192,25 @@ const handleSelectSeason = (e) => {
     </div>
 
     <div className='field'>
+      <label>Lugar</label>
+      <select 
+      name="lugar"
+      value={input.lugar}>
+       <option key="defaultValue" hidden value={""}>lugares</option>
+       <option key='value1' value='Playa'>Playa</option>
+       <option key='value2' value='Montana'>Montaña</option>
+      </select>
+     
+    </div>
+
+    <div className='field'>
       <label>Countries</label>
       <select onChange={(e) => handleSelectCountries(e)} >         
         <option hidden value={""} >Countries select</option>
-						{countries.map(countries => 
+						{countries && countries.map(countries => 
 							<option key={countries.id} value={countries.name}>{countries.name}</option> 
-              
-						)}
+             
+						) }
 	</select>
           
         
@@ -218,7 +234,7 @@ const handleSelectSeason = (e) => {
         <br></br>
         <div>
         {
-          input.countries.map(e => 
+          input.countries?.map(e => 
             <div >
               <p>{e}</p>
               <button className='removeBtn' onClick={() => handleDeleteCountries(e)}>X</button>

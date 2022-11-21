@@ -12,7 +12,6 @@ export const FILTER_ACTIVITY="FILTER_BY_ACTIVITy"
 
 
 
-
 export function getAllCountries(){
      return async function(dispatch)  {
       try {
@@ -36,6 +35,7 @@ export function getNameCountries(name){
             payload:json.data
         })
     } catch (error) {
+        alert(error.response.data)
         console.log(error)
     }
  }   

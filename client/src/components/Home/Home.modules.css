@@ -90,6 +90,7 @@ option{
 .btnReload:hover, .btnCreateAct:hover {
     box-shadow: 0px 4px 8px rgb(45 35 66 / 40%), 0px 7px 13px -3px rgb(45 35 66 / 30%), inset 0px -3px 0px #bebfc9;
     transform: translateY(-2px);
+    background: rgb(124, 76, 76)
 }
 
 .btnReload:active, .btnCreateAct:active {
@@ -118,6 +119,7 @@ option{
 .btnReloadEsp:hover {
     box-shadow: 0px 4px 8px rgb(45 35 66 / 40%), 0px 7px 13px -3px rgb(45 35 66 / 30%), inset 0px -3px 0px #bebfc9;
     transform: translateY(-2px);
+    background: rgb(124, 76, 76)
 }
 
 .btnReloadEsp:active {
