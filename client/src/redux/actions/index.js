@@ -15,7 +15,7 @@ export const FILTER_ACTIVITY="FILTER_BY_ACTIVITy"
 export function getAllCountries(){
      return async function(dispatch)  {
       try {
-            const json = await axios.get(`http://localhost:3001/countries`);
+            const json = await axios.get(`/countries`);
             return dispatch({
                 type: GET_ALL_COUNTRIES,
                 payload: json.data
@@ -29,7 +29,7 @@ export function getAllCountries(){
 export function getNameCountries(name){
  return async function(dispatch){
     try {
-        var json = await axios.get (`http://localhost:3001/countries?name=${name}`);
+        var json = await axios.get (`/countries?name=${name}`);
         return dispatch({
             type: GET_NAME_COUNTRIES,
             payload:json.data
@@ -44,7 +44,7 @@ export function getNameCountries(name){
 export function getCountriesById(id){
     return async function(dispatch){
         try {
-            var json = await axios.get(`http://localhost:3001/countries/${id}`);
+            var json = await axios.get(`/countries/${id}`);
             return dispatch({
                 type: GET_COUNTRIES_BY_ID,
                 payload:json.data
@@ -79,7 +79,7 @@ export const orderByPopulation = (population) => {
 
 export const createActivity =  (payload) => {
     return async function (dispatch) {
-        const inputUser = await axios.post("http://localhost:3001/activities", payload);
+        const inputUser = await axios.post("/activities", payload);
         return dispatch ({
             type: POST_ACTIVITIES,
             inputUser
@@ -90,7 +90,7 @@ export const createActivity =  (payload) => {
 
 
 export const filterByActivity = (payload) =>  async (dispatch) => {
-    const response = await axios.get('http://localhost:3001/countries')
+    const response = await axios.get('/countries')
 
     const response2 = await response.data.filter((e) => (
         e.activities.filter((el) => el.name === payload).length
@@ -105,6 +105,6 @@ export const filterByActivity = (payload) =>  async (dispatch) => {
 }
 
 export const getAllActivities = () => async (dispatch) => {
-    const response = await axios.get('http://localhost:3001/activities')
+    const response = await axios.get('/activities')
     dispatch({ type: GET_ACTIVITIES, payload: response.data })
 }

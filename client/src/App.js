@@ -7,7 +7,6 @@ import  CreateActivity from './components/CreateActivity/CreateActivity';
 import Error404 from './components/Error404/Error404';
 import NavBar from './components/NavBar/NavBar';
 
-
 function App() {
   return (
     <div className="App">
